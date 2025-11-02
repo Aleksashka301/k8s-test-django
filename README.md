@@ -77,6 +77,56 @@ $ docker compose build web
 `DATABASE_URL` -- адрес для подключения к базе данных PostgreSQL. Другие СУБД сайт не поддерживает. [Формат записи](https://github.com/jacobian/dj-database-url#url-schema).
 
 ## Запуск сайта в Kubernetes
- Настройка secret
- Настройка CronJob
- Запуск миграций
+### k8s.yaml
+Основной файл, запускает и разворачивает сайт в кластере
+
+Команда для запуска
+```yaml
+kubectl apply -f k8s.yaml
+```
+### secret.yaml
+Файл содержит переменные окружения, не обходимые для запуска сайта
+
+Значения переменных должны быть закодированы в `base64`
+- `POSTGRES_DB` - имя БД
+- `POSTGRES_USER` - пользователь БД
+- `POSTGRES_PASSWORD` - пароль БД
+- `SECRET_KEY` - Критически важный ключ безопасности Django
+- `DEBUG` - настройка Django для включения отладочного режима
+- `DATABASE_URL` - не обходимые настройки для БД
+- `ALLOWED_HOSTS` - Белый список разрешенных доменов для Django приложения
+
+Команда для запуска
+```yaml
+kubectl apply -f secret.yaml
+```
+### django_migration.yaml
+Файл запускает миграции
+
+Команда для запуска
+```yaml
+kubectl apply -f django_migration.yaml
+```
+### django_ingress.yaml
+Файл настройки внешнего подключения
+
+В нём нужно указать домен, сервис и порт на котором будет работать сайт
+
+Команда для запуска
+```yaml
+kubectl apply -f django_ingress.yaml
+```
+### django_cronjob.yaml
+Файл для интервальной очистки сессий django
+
+Команда для запуска
+```yaml
+kubectl apply -f django_cronjob.yaml
+```
+### django_clearsessions.yaml
+Файл для разовой очистки сессий django
+
+Команда для запуска
+```yaml
+kubectl apply -f django_clearsessions.yaml
+```
