@@ -79,3 +79,4 @@ $ docker compose build web
 ## Запуск сайта в Kubernetes
  Настройка secret
  Настройка CronJob
+ Запуск миграций
