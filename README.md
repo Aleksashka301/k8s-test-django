@@ -77,15 +77,9 @@ $ docker compose build web
 `DATABASE_URL` -- адрес для подключения к базе данных PostgreSQL. Другие СУБД сайт не поддерживает. [Формат записи](https://github.com/jacobian/dj-database-url#url-schema).
 
 ## Запуск сайта в Kubernetes
-### k8s.yaml
-Основной файл, запускает и разворачивает сайт в кластере
-
-Команда для запуска
-```yaml
-kubectl apply -f k8s.yaml
-```
 ### secret.yaml
-Файл содержит переменные окружения, не обходимые для запуска сайта
+Файл содержит переменные окружения, необходимые для запуска сайта. Нужно создать перед развёртыванием сайта в 
+kubernetes. Перейдите в `chart_django_app\templates` и создайте файл `secret.yaml`, затем нужно создать переменные
 
 Значения переменных должны быть закодированы в `base64`
 - `POSTGRES_DB` - имя БД
@@ -96,37 +90,39 @@ kubectl apply -f k8s.yaml
 - `DATABASE_URL` - не обходимые настройки для БД
 - `ALLOWED_HOSTS` - Белый список разрешенных доменов для Django приложения
 
-Команда для запуска
+После нужно перейти в `chart_django_app` и запустить команду
 ```yaml
-kubectl apply -f secret.yaml
+helm install <name project> .
 ```
-### django_migration.yaml
+
+## Содержание файлов для развёртывания сайта
+### migration-job.yaml
 Файл запускает миграции
 
-Команда для запуска
-```yaml
-kubectl apply -f django_migration.yaml
-```
-### django_ingress.yaml
-Файл настройки внешнего подключения
+### deployment.yaml
+Файл содержит deployment для сайта и бд
+
+### service.yaml
+Файл содержит service для сайта и бд
+
+### ingress.yaml
+Файл содержит настройки внешнего подключения
 
 В нём нужно указать домен, сервис и порт на котором будет работать сайт
 
-Команда для запуска
-```yaml
-kubectl apply -f django_ingress.yaml
-```
-### django_cronjob.yaml
+### cronjob.yaml
 Файл для интервальной очистки сессий django
 
-Команда для запуска
-```yaml
-kubectl apply -f django_cronjob.yaml
-```
-### django_clearsessions.yaml
+### clearsessions-job.yaml
 Файл для разовой очистки сессий django
 
 Команда для запуска
 ```yaml
-kubectl apply -f django_clearsessions.yaml
+kubectl apply -f clearsessions-job.yaml
 ```
+
+### values.yaml
+Файл содержит данные, которые используют другие yaml файлы (images, ports, replicas...)
+
+### Chart.yaml
+Файл содержит метаинформацию о сайте
