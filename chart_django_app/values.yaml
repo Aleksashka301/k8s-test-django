@@ -1,0 +1,22 @@
+container:
+  django:
+    image: django_app:latest
+  postgres:
+    image: postgres:12.0-alpine
+deployment:
+  replicasDjango: 1
+  replicasPostgres: 1
+global:
+  ingress:
+    host: star-burger.test
+    port: 80
+  service:
+    postgresPort: 5432
+    djangoPort: 80
+job:
+  timerTask: "0 3 * * *"
+  clearsession:
+    startingDeadlineSeconds: 360
+    ttlSecondsAfterFinished: 3600
+  migration:
+    ttlSecondsAfterFinished: 600
