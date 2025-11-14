@@ -89,6 +89,9 @@ kubernetes. Перейдите в `chart_django_app\templates` и создайт
 - `DEBUG` - настройка Django для включения отладочного режима
 - `DATABASE_URL` - не обходимые настройки для БД
 - `ALLOWED_HOSTS` - Белый список разрешенных доменов для Django приложения
+- `SSL_CRT` - SSL сертификат, необходим для подключения к бд 
+ [Скачать SSL](https://storage.yandexcloud.net/cloud-certs/RootCA.pem). Содержимое файла закодировать в `base64` и
+ вставить в `secret`
 
 После нужно перейти в `chart_django_app` и запустить команду
 ```yaml
