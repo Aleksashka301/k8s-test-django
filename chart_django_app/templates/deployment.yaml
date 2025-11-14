@@ -73,5 +73,10 @@ spec:
                 secretKeyRef:
                   name: django-secret
                   key: ALLOWED_HOSTS
+            - name: SSL_CRT
+              valueFrom:
+                secretKeyRef:
+                  name: django-secret
+                  key: SSL_CRT
           ports:
             - containerPort: 8000
