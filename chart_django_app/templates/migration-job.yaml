@@ -9,7 +9,6 @@ spec:
       containers:
       - name: migrations
         image: {{ .Values.container.django.image }}
-        imagePullPolicy: Never
         command: ["python", "manage.py", "migrate"]
         env:
           - name: DATABASE_URL
