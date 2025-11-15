@@ -1,6 +1,6 @@
 container:
   django:
-    image: django_app:latest
+    image: aleksandr301/django_app:latest
   postgres:
     image: postgres:12.0-alpine
 deployment:
