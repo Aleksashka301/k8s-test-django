@@ -129,3 +129,5 @@ kubectl apply -f clearsessions-job.yaml
 
 ### Chart.yaml
 Файл содержит метаинформацию о сайте
+
+тест
