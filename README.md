@@ -76,6 +76,18 @@ $ docker compose build web
 
 `DATABASE_URL` -- адрес для подключения к базе данных PostgreSQL. Другие СУБД сайт не поддерживает. [Формат записи](https://github.com/jacobian/dj-database-url#url-schema).
 
+## Создание docker image
+Для создания docker образа необходимо запустить скрипт `build_image.sh`. Скрипт берёт последний хеш git-а и
+подставляет его в тэг docker image.
+
+Команда для запуска скрипта
+```commandline
+./build_image.sh
+```
+После можно разместить образ на `docker hub` командой
+```dockerfile
+docker push <Login docker hub>/<Имя образа>:<TAG образа>
+```
 ## Запуск сайта в Kubernetes
 ### secret.yaml
 Файл содержит переменные окружения, необходимые для запуска сайта. Нужно создать перед развёртыванием сайта в 
@@ -95,39 +107,26 @@ kubernetes. Перейдите в `chart_django_app\templates` и создайт
 
 После нужно перейти в `chart_django_app` и запустить команду
 ```yaml
-helm install <name project> .
+helm install <name project> ./ -n <namespace>
 ```
 
 ## Содержание файлов для развёртывания сайта
-### migration-job.yaml
-Файл запускает миграции
+- `migration-job.yaml` - Файл запускает миграции
+- `deployment.yaml` - Файл содержит deployment для сайта и бд
+- `service.yaml` - Файл содержит service для сайта и бд
+- `ingress.yaml` - Файл содержит настройки внешнего подключения. В нём нужно указать домен, сервис и порт на котором 
+будет работать сайт.
+- `cronjob.yaml` - Файл для интервальной очистки сессий django
+- `values.yaml` - Файл содержит данные, которые используют другие yaml файлы (images, ports, replicas...)
+- `Chart.yaml` - Файл содержит метаинформацию о сайте
 
-### deployment.yaml
-Файл содержит deployment для сайта и бд
-
-### service.yaml
-Файл содержит service для сайта и бд
-
-### ingress.yaml
-Файл содержит настройки внешнего подключения
-
-В нём нужно указать домен, сервис и порт на котором будет работать сайт
-
-### cronjob.yaml
-Файл для интервальной очистки сессий django
-
-### clearsessions-job.yaml
-Файл для разовой очистки сессий django
+`clearsessions-job.yaml` - Файл для разовой очистки сессий django
 
 Команда для запуска
 ```yaml
 kubectl apply -f clearsessions-job.yaml
 ```
 
-### values.yaml
-Файл содержит данные, которые используют другие yaml файлы (images, ports, replicas...)
 
-### Chart.yaml
-Файл содержит метаинформацию о сайте
 
-тест
+
