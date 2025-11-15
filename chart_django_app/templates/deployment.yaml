@@ -51,7 +51,6 @@ spec:
       containers:
         - name: django-container
           image: {{ .Values.container.django.image }}
-          imagePullPolicy: Never
           env:
             - name: SECRET_KEY
               valueFrom:
