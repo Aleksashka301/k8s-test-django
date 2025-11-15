@@ -13,8 +13,11 @@ services:
       - "5432:5432"
 
   web:
-    build: backend_main_django
-    image: django_app
+    build:
+      context: backend_main_django
+      args:
+        GIT_COMMIT: ${GIT_COMMIT:-unknown}
+    image: aleksandr301/django_app:${DOCKER_TAG:-latest}
     volumes:
       - ./backend_main_django:/code
     environment: 
