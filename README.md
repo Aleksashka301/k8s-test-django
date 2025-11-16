@@ -127,6 +127,9 @@ helm install <name project> ./ -n <namespace>
 kubectl apply -f clearsessions-job.yaml
 ```
 
+[Ссылка](https://edu-aleksandr-ushakov.yc-sirius-dev.pelid.team/admin/) на демонстрацию сайта
 
+[Ссылка](https://sirius-env-registry.website.yandexcloud.net/edu-aleksandr-ushakov.html) на описание выделенных 
+ресурсов
 
 
