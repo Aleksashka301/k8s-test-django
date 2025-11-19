@@ -3,12 +3,12 @@ kind: Job
 metadata:
   name: django-migrations
 spec:
-  ttlSecondsAfterFinished: {{ .Values.job.migration.ttlSecondsAfterFinished }}
+  ttlSecondsAfterFinished: 3600
   template:
     spec:
       containers:
       - name: migrations
-        image: {{ .Values.container.django.image }}
+        image: {{ .Values.components.backend.image }}
         command: ["python", "manage.py", "migrate"]
         env:
           - name: DATABASE_URL
