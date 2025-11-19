@@ -5,7 +5,7 @@ metadata:
 spec:
   containers:
     - name: django-clearsessions
-      image: {{ .Values.container.django.image }}
+      image: {{ .Values.components.backend.image }}
       imagePullPolicy: Never
       command: ["python", "manage.py", "clearsessions"]
       env:
