@@ -4,7 +4,7 @@ metadata:
   name: django-ingress
 spec:
   rules:
-    - host: {{ .Values.global.ingress.host }}
+    - host: edu-aleksandr-ushakov.yc-sirius-dev.pelid.team
       http:
         paths:
           - path: /
@@ -13,4 +13,4 @@ spec:
               service:
                 name: django-service
                 port:
-                  number: {{ .Values.global.ingress.port }}
+                  number: 80
