@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: postgres-deployment
 spec:
-  replicas: {{ .Values.deployment.replicasPostgres }}
+  replicas: 1
   selector:
     matchLabels:
       app: postgres-db
@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: postgres-container
-          image: {{ .Values.container.postgres.image }}
+          image: {{ .Values.components.database.image }}
           env:
             - name: POSTGRES_DB
               valueFrom:
@@ -39,7 +39,7 @@ kind: Deployment
 metadata:
   name: django-deployment
 spec:
-  replicas: {{ .Values.deployment.replicasDjango }}
+  replicas: 1
   selector:
     matchLabels:
       app: django-app
@@ -50,7 +50,7 @@ spec:
     spec:
       containers:
         - name: django-container
-          image: {{ .Values.container.django.image }}
+          image: {{ .Values.components.backend.image }}
           env:
             - name: SECRET_KEY
               valueFrom:
