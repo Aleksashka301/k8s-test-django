@@ -7,8 +7,8 @@ spec:
     app: postgres-db
   ports:
     - protocol: TCP
-      port: {{ .Values.global.service.postgresPort }}
-      targetPort: {{ .Values.global.service.postgresPort }}
+      port: 5432
+      targetPort: 5432
   type: ClusterIP
 ---
 apiVersion: v1
@@ -20,6 +20,6 @@ spec:
     app: django-app
   ports:
     - protocol: TCP
-      port: {{ .Values.global.service.djangoPort }}
-      targetPort: {{ .Values.global.service.djangoPort }}
+      port: 80
+      targetPort: 80
   type: ClusterIP
