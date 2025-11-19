@@ -3,16 +3,16 @@ kind: CronJob
 metadata:
   name: django-clearsessions-once
 spec:
-  schedule: {{ .Values.job.timerTask }}
-  startingDeadlineSeconds: {{ .Values.job.clearsession.startingDeadlineSeconds }}
+  schedule: "0 3 * * *"
+  startingDeadlineSeconds: 360
   jobTemplate:
     spec:
-      ttlSecondsAfterFinished: {{ .Values.job.clearsession.ttlSecondsAfterFinished }}
+      ttlSecondsAfterFinished: 3600
       template:
         spec:
           containers:
           - name: django-cleanup
-            image: {{ .Values.container.django.image }}
+            image: {{ .Values.components.backend.image }}
             imagePullPolicy: Never
             command: ["python", "manage.py", "clearsessions"]
             env:
