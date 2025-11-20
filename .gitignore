@@ -1,9 +1,9 @@
 # Byte-compiled / optimized / DLL files
 .env
-chart_django_app/templates/secret.yaml
 ssl
 .idea
 __pycache__/
 notes.txt
 *.py[cod]
 *$py.class
+chart_django_app/templates/secret.yaml
