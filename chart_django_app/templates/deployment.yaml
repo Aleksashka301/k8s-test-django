@@ -78,4 +78,4 @@ spec:
                   name: django-secret
                   key: SSL_CRT
           ports:
-            - containerPort: 8000
+            - containerPort: 80
