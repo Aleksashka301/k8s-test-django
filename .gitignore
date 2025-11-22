@@ -6,4 +6,3 @@ __pycache__/
 notes.txt
 *.py[cod]
 *$py.class
-chart_django_app/templates/secret.yaml
