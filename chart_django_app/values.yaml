@@ -1,5 +1,3 @@
 components:
   backend:
     image: aleksandr301/django_app:latest
-  database:
-    image: postgres:12.0-alpine
