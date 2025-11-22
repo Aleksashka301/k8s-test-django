@@ -112,20 +112,10 @@ helm install <name project> ./ -n <namespace>
 
 ## Содержание файлов для развёртывания сайта
 - `migration-job.yaml` - Файл запускает миграции
-- `deployment.yaml` - Файл содержит deployment для сайта и бд
-- `service.yaml` - Файл содержит service для сайта и бд
-- `ingress.yaml` - Файл содержит настройки внешнего подключения. В нём нужно указать домен, сервис и порт на котором 
-будет работать сайт.
-- `cronjob.yaml` - Файл для интервальной очистки сессий django
-- `values.yaml` - Файл содержит данные, которые используют другие yaml файлы (images, ports, replicas...)
+- `deployment.yaml` - Файл содержит deployment для сайта
+- `service.yaml` - Файл содержит service для сайта
+- `values.yaml` - Файл содержит данные, которые используют другие yaml файлы
 - `Chart.yaml` - Файл содержит метаинформацию о сайте
-
-`clearsessions-job.yaml` - Файл для разовой очистки сессий django
-
-Команда для запуска
-```yaml
-kubectl apply -f clearsessions-job.yaml
-```
 
 [Ссылка](https://edu-aleksandr-ushakov.yc-sirius-dev.pelid.team/admin/) на демонстрацию сайта
 
