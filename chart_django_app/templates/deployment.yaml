@@ -1,42 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: postgres-deployment
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: postgres-db
-  template:
-    metadata:
-      labels:
-        app: postgres-db
-    spec:
-      containers:
-        - name: postgres-container
-          image: {{ .Values.components.database.image }}
-          env:
-            - name: POSTGRES_DB
-              valueFrom:
-                secretKeyRef:
-                  name: django-secret
-                  key: POSTGRES_DB
-            - name: POSTGRES_USER
-              valueFrom:
-                secretKeyRef:
-                  name: django-secret
-                  key: POSTGRES_USER
-            - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: django-secret
-                  key: POSTGRES_PASSWORD
-          ports:
-            - containerPort: 5432
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
   name: django-deployment
 spec:
   replicas: 1
@@ -65,8 +29,8 @@ spec:
             - name: DATABASE_URL
               valueFrom:
                 secretKeyRef:
-                  name: django-secret
-                  key: DATABASE_URL
+                  name: postgres
+                  key: dsn
             - name: ALLOWED_HOSTS
               valueFrom:
                 secretKeyRef:
@@ -77,5 +41,40 @@ spec:
                 secretKeyRef:
                   name: django-secret
                   key: SSL_CRT
+            - name: name
+              valueFrom:
+                secretKeyRef:
+                  name: postgres
+                  key: name
+            - name: port
+              valueFrom:
+                secretKeyRef:
+                  name: postgres
+                  key: port
+            - name: root.crt
+              valueFrom:
+                secretKeyRef:
+                  name: postgres
+                  key: root.crt
+            - name: dsn
+              valueFrom:
+                secretKeyRef:
+                  name: postgres
+                  key: dsn
+            - name: host
+              valueFrom:
+                secretKeyRef:
+                  name: postgres
+                  key: host
+            - name: username
+              valueFrom:
+                secretKeyRef:
+                  name: postgres
+                  key: username
+            - name: password
+              valueFrom:
+                secretKeyRef:
+                  name: postgres
+                  key: password
           ports:
             - containerPort: 80
