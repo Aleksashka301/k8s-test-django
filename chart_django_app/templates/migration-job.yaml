@@ -14,8 +14,8 @@ spec:
           - name: DATABASE_URL
             valueFrom:
               secretKeyRef:
-                name: django-secret
-                key: DATABASE_URL
+                name: postgres
+                key: dsn
           - name: SECRET_KEY
             valueFrom:
               secretKeyRef:
